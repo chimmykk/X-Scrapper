@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Scraper</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/plugin/relativeTime.js"></script>
+    <script>
+        dayjs.extend(window.dayjs_plugin_relativeTime);
+    </script>
+    <style>
+        :root {
+            --primary: #1da1f2;
+            --background: #15202b;
+            --card-bg: #192734;
+            --text: #ffffff;
+            --text-muted: #8899a6;
+            --border: #38444d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: var(--background);
+            padding: 15px 0;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            padding: 0 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1a91da;
+        }
+
+        .tweet {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .tweet:hover {
+            transform: translateY(-2px);
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tweet-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .tweet-user {
+            flex: 1;
+        }
+
+        .tweet-name {
+            font-weight: bold;
+            color: var(--text);
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .tweet-username {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .tweet-time {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .tweet-content {
+            margin: 10px 0;
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+
+        .tweet-stats {
+            display: flex;
+            color: var(--text-muted);
+            font-size: 14px;
+            gap: 15px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tweet-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            width: 250px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+            color: var(--text);
+        }
+
+        .add-user-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .add-user-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .add-user-btn {
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-user-btn:hover {
+            opacity: 0.9;
+        }
+
+        .user-list {
+            margin-top: 15px;
+        }
+
+        .user-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-actions h4 {
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .export-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .export-btn:hover {
+            background: var(--background);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .export-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .user-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-list li .username {
+            flex: 1;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+        
+        .user-list li .username:hover {
+            color: var(--primary);
+        }
+        
+        .user-list li .user-actions {
+            display: flex;
+            gap: 4px;
+            margin: 0;
+        }
+        
+        .export-user {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .export-user:hover {
+            background: var(--background);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .export-user svg {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .spinner {
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .export-user:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .user-list li:last-child {
+            border-bottom: none;
+        }
+
+        .delete-user {
+            color: #f4212e;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .delete-user:hover {
+            background: rgba(244, 33, 46, 0.1);
+        }
+
+        .tweet-stat svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .tweet-media {
+            margin: 10px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .tweet-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 16px;
+            object-fit: contain;
+        }
+
+        .tweet-video {
+            width: 100%;
+            max-height: 500px;
+            border-radius: 16px;
+            background-color: #000;
+        }
+
+        .tweet-media img, 
+        .tweet-media video {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            button {
+                padding: 12px;
+            }
+        }
+
+        .mention, .hashtag, .url {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .mention:hover, .hashtag:hover, .url:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Manage Users</h3>
+        <div class="add-user-form">
+            <input 
+                type="text" 
+                id="newUsername" 
+                placeholder="Enter username to add"
+                class="add-user-input"
+            >
+            <button id="addUserBtn" class="add-user-btn">Add User</button>
+        </div>
+        <div class="user-list">
+            <h4>Tracked Users</h4>
+            <ul id="userList">
+                <!-- User list will be populated by JavaScript -->
+                <li>Loading users...</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Twitter Scraper</h1>
+        
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="username" 
+                placeholder="Enter Twitter username" 
+                name="username"
+            >
+            <button id="searchButton" type="button">Search</button>
+        </div>
+        
+        <div id="tweets">
+            <div class="loading">Loading tweets...</div>
+        </div>
+    </div>
+
+    <script>
+        // Process tweet text to make mentions, hashtags, and URLs clickable
+        function processTweetText(text) {
+            if (!text) return '';
+            
+            // Replace URLs
+            let processedText = text.replace(/(https?:\/\/[^\s]+)/g, 
+                '<a href="$&" class="url" target="_blank" rel="noopener noreferrer">$&</a>');
+                
+            // Replace mentions
+            processedText = processedText.replace(/@(\w+)/g, 
+                '<a href="https://twitter.com/$1" class="mention" target="_blank" rel="noopener noreferrer">@$1</a>');
+                
+            // Replace hashtags
+            processedText = processedText.replace(/#(\w+)/g, 
+                '<a href="https://twitter.com/hashtag/$1" class="hashtag" target="_blank" rel="noopener noreferrer">#$1</a>');
+                
+            return processedText;
+        }
+
+
+        // Format date to relative time
+        function formatDate(dateString) {
+            return dayjs(dateString).fromNow();
+        }
+
+
+        // Base URL for API requests
+        const API_BASE_URL = 'https://5837-206-81-3-128.ngrok-free.app';
+
+        // Load users from server
+        async function loadUsers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/users`);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    throw new Error(`Failed to load users: ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                return data.users || [];
+            } catch (error) {
+                console.error('Error loading users:', error);
+                return [];
+            }
+        }
+
+        // Add a new user
+        async function addUser(username) {
+            if (!username) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/adduser`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: username.trim() })
+                });
+                
+                let result;
+                try {
+                    const responseText = await response.text();
+                    result = responseText ? JSON.parse(responseText) : {};
+                } catch (parseError) {
+                    console.error('Error parsing JSON:', parseError);
+                    throw new Error('Invalid response from server');
+                }
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'Failed to add user');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('Error adding user:', error);
+                throw error;
+            }
+        }
+
+
+        // Update the user list in the UI
+        async function updateUserList() {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = '<li>Loading users...</li>';
+            
+            try {
+                const users = await loadUsers();
+                
+                if (users.length === 0) {
+                    userList.innerHTML = '<li>No users found</li>';
+                    return;
+                }
+                
+                userList.innerHTML = users.map(user => `
+                    <li>
+                        <span class="username">@${user.username}</span>
+                        <div class="user-actions">
+                            <button class="export-user" data-username="${user.username}" title="Export tweets">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                            <button class="delete-user" data-username="${user.username}" title="Remove user">
+                                ×
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-user').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const username = btn.dataset.username;
+                        if (confirm(`Remove @${username} from tracked users?`)) {
+                            try {
+                                await fetch(`${API_BASE_URL}/api/users/${encodeURIComponent(username)}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    credentials: 'same-origin'
+                                });
+                                updateUserList();
+                            } catch (error) {
+                                console.error('Error deleting user:', error);
+                                alert('Failed to remove user');
+                            }
+                        }
+                    });
+                });
+                
+                // Add click handler to usernames to load their tweets
+                document.querySelectorAll('#userList li span').forEach(span => {
+                    span.addEventListener('click', (e) => {
+                        const username = e.target.textContent.replace('@', '');
+                        document.getElementById('username').value = username;
+                        fetchTweets(username);
+                    });
+                });
+                
+            } catch (error) {
+                userList.innerHTML = '<li>Error loading users</li>';
+                console.error('Error updating user list:', error);
+            }
+        }
+
+
+        // Function to convert JSON to CSV
+        function convertToCSV(items) {
+            if (!items || !items.length) return '';
+            
+            // Get all unique keys from all items
+            const headers = [...new Set(items.flatMap(item => Object.keys(item)))];
+            
+            // Create CSV header
+            const csvRows = [
+                headers.join(',')
+            ];
+            
+            // Create CSV rows
+            for (const item of items) {
+                const values = headers.map(header => {
+                    const value = item[header] !== undefined ? item[header] : '';
+                    // Escape quotes and wrap in quotes if contains comma or quote
+                    const escaped = String(value).replace(/"/g, '""');
+                    return `"${escaped}"`;
+                });
+                csvRows.push(values.join(','));
+            }
+            
+            return csvRows.join('\n');
+        }
+        
+        // Function to download CSV
+        function downloadCSV(csv, filename) {
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Format numbers with K, M, B suffixes
+        function formatNumber(num) {
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(1) + 'B';
+            }
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        // Function to fetch and display tweets
+        async function fetchTweets(username) {
+            if (!username) return;
+            
+            const tweetsContainer = document.getElementById('tweets');
+            tweetsContainer.innerHTML = '<div class="loading">Loading tweets...</div>';
+            
+            try {
+                const response = await fetch(`http://localhost:3000/api/tweets/${encodeURIComponent(username)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                if (data.success && data.tweets && data.tweets.length > 0) {
+                    // Sort tweets by date (newest first)
+                    const sortedTweets = [...data.tweets].sort((a, b) => {
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    });
+                    renderTweets(sortedTweets);
+                } else {
+                    tweetsContainer.innerHTML = '<div class="no-tweets">No tweets found for this user.</div>';
+                }
+            } catch (error) {
+                console.error('Error fetching tweets:', error);
+                tweetsContainer.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Function to render tweets
+        function renderTweets(tweets) {
+            const tweetsContainer = document.getElementById('tweets');
+            tweetsContainer.innerHTML = '';
+            
+            // Filter out reply tweets
+            const nonReplyTweets = tweets.filter(tweet => !tweet.isReply);
+            
+            if (nonReplyTweets.length === 0) {
+                tweetsContainer.innerHTML = '<div class="no-tweets">No non-reply tweets found for this user.</div>';
+                return;
+            }
+            
+            nonReplyTweets.forEach(tweet => {
+                const tweetEl = document.createElement('div');
+                tweetEl.className = 'tweet';
+                tweetEl.innerHTML = `
+                    <div class="tweet-header">
+                        <img 
+                            src="${tweet.author.profilePicture || 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'}" 
+                            alt="${tweet.author.name}" 
+                            class="tweet-avatar"
+                            onerror="this.onerror=null; this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'"
+                        >
+                        <div class="tweet-user">
+                            <a href="https://twitter.com/${tweet.author.userName}" class="tweet-name" target="_blank" rel="noopener noreferrer">
+                                ${tweet.author.name}
+                            </a>
+                            <a href="https://twitter.com/${tweet.author.userName}" class="tweet-username" target="_blank" rel="noopener noreferrer">
+                                @${tweet.author.userName}
+                            </a>
+                        </div>
+                        <div class="tweet-time">
+                            ${formatDate(tweet.createdAt)}
+                        </div>
+                    </div>
+                    <div class="tweet-content">
+                        ${processTweetText(tweet.text)}
+                    </div>
+                    ${tweet.extendedEntities?.media?.length > 0 ? `
+                        <div class="tweet-media">
+                            ${tweet.extendedEntities.media.map(media => {
+                                if (media.type === 'photo' || media.media_url_https) {
+                                    return `<img src="${media.media_url_https}" alt="Tweet media" class="tweet-image" loading="lazy">`;
+                                } else if (media.type === 'video' || media.type === 'animated_gif') {
+                                    const videoUrl = media.video_info?.variants?.[0]?.url || '';
+                                    return `
+                                        <video class="tweet-video" controls loop ${media.type === 'animated_gif' ? 'muted autoplay playsinline' : ''}>
+                                            <source src="${videoUrl}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    `;
+                                }
+                                return '';
+                            }).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="tweet-stats">
+                        <div class="tweet-stat" title="Likes">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12z"></path>
+                            </svg>
+                            <span>${formatNumber(tweet.likeCount || 0)}</span>
+                        </div>
+                        <div class="tweet-stat" title="Retweets">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path>
+                            </svg>
+                            <span>${formatNumber(tweet.retweetCount || 0)}</span>
+                        </div>
+                        <div class="tweet-stat" title="Replies">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.8 0 4.302 3.38 7.787 7.646 7.8h.22l4.25.01c.414 0 .75.336.75.75s-.335.75-.75.75h-4.5c-5.1 0-9.25-4.15-9.25-9.25 0-5.1 4.15-9.25 9.25-9.25h4.5c.415 0 .75.336.75.75s-.335.75-.75.75z"></path>
+                            </svg>
+                            <span>${formatNumber(tweet.replyCount || 0)}</span>
+                        </div>
+                    </div>
+                `;
+                tweetsContainer.appendChild(tweetEl);
+            });
+            
+            // Show a message if tweets were filtered out
+            if (nonReplyTweets.length < tweets.length) {
+                const filteredCount = tweets.length - nonReplyTweets.length;
+                const message = document.createElement('div');
+                message.className = 'filter-message';
+                message.textContent = `(${filteredCount} reply tweet${filteredCount !== 1 ? 's' : ''} hidden)`;
+                message.style.marginTop = '10px';
+                message.style.color = 'var(--text-muted)';
+                message.style.fontSize = '14px';
+                tweetsContainer.appendChild(message);
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', async () => {
+            const searchButton = document.getElementById('searchButton');
+            const usernameInput = document.getElementById('username');
+            const addUserBtn = document.getElementById('addUserBtn');
+            const newUsernameInput = document.getElementById('newUsername');
+            
+            // Load initial user list
+            updateUserList();
+            
+            // Add user button click handler
+            addUserBtn.addEventListener('click', async () => {
+                const username = newUsernameInput.value.trim();
+                if (!username) return;
+                
+                try {
+                    addUserBtn.disabled = true;
+                    addUserBtn.textContent = 'Adding...';
+                    
+                    await addUser(username);
+                    newUsernameInput.value = ''; // Clear input after adding
+                    await updateUserList();
+                    
+                    // Load tweets for the newly added user
+                    usernameInput.value = username;
+                    fetchTweets(username);
+                } catch (error) {
+                    alert(error.message || 'Failed to add user');
+                } finally {
+                    addUserBtn.disabled = false;
+                    addUserBtn.textContent = 'Add User';
+                }
+            });
+            
+            // Allow adding user with Enter key
+            newUsernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addUserBtn.click();
+                }
+            });
+            
+            // Search button click handler
+            searchButton.addEventListener('click', () => {
+                const username = usernameInput.value.trim();
+                if (username) {
+                    fetchTweets(username);
+                }
+            });
+            
+            // Enter key handler
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const username = usernameInput.value.trim();
+                    if (username) {
+                        fetchTweets(username);
+                    }
+                }
+            });
+            
+            // Handle export button clicks
+            document.addEventListener('click', async (e) => {
+                if (e.target.closest('.export-user')) {
+                    const button = e.target.closest('.export-user');
+                    const username = button.dataset.username;
+                    if (!username) return;
+                    
+                    button.disabled = true;
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<div class="spinner"></div>';
+                    
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/tweets/${encodeURIComponent(username)}`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        
+                        if (data.success && data.tweets && data.tweets.length > 0) {
+                            // Flatten the tweet data for CSV
+                            const flatTweets = data.tweets.map(tweet => ({
+                                id: tweet.id,
+                                text: tweet.text.replace(/[\n\r]+/g, ' '),
+                                createdAt: tweet.createdAt,
+                                likes: tweet.likeCount || 0,
+                                retweets: tweet.retweetCount || 0,
+                                replies: tweet.replyCount || 0,
+                                url: `https://twitter.com/${tweet.author.userName}/status/${tweet.id}`,
+                                author: tweet.author.name,
+                                username: tweet.author.userName
+                            }));
+                            
+                            const csv = convertToCSV(flatTweets);
+                            downloadCSV(csv, `${username}_tweets_${new Date().toISOString().split('T')[0]}.csv`);
+                        } else {
+                            alert('No tweets found to export');
+                        }
+                    } catch (error) {
+                        console.error('Error exporting CSV:', error);
+                        alert('Failed to export tweets: ' + error.message);
+                    } finally {
+                        button.disabled = false;
+                        button.innerHTML = originalHTML;
+                    }
+                }
+            });
+            
+            // Load default tweets on page load
+            fetchTweets('johnlemonnft');
+        });
+
+        // HTMX afterRequest handler to process tweets after they're loaded
+        document.body.addEventListener('htmx:afterRequest', function(evt) {
+            if (evt.detail.requestConfig.path.startsWith('/api/tweets/')) {
+                const tweetsContainer = document.getElementById('tweets');
+                if (tweetsContainer) {
+                    // Process tweet text for any dynamic content
+                    const tweets = tweetsContainer.querySelectorAll('.tweet-content');
+                    tweets.forEach(tweet => {
+                        tweet.innerHTML = processTweetText(tweet.textContent);
+                    });
+
+                    // Format dates
+                    const dates = tweetsContainer.querySelectorAll('.tweet-time');
+                    dates.forEach(dateEl => {
+                        if (dateEl.dataset.time) {
+                            dateEl.textContent = formatDate(dateEl.dataset.time);
+                        }
+                    });
+
+                    // Format numbers
+                    const numbers = tweetsContainer.querySelectorAll('[data-count]');
+                    numbers.forEach(numEl => {
+                        const count = parseInt(numEl.dataset.count);
+                        if (!isNaN(count)) {
+                            numEl.textContent = formatNumber(count);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

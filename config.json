@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "username": "johnlemonnft",
+      "lastTimestampScrape": "2025-09-17T21%3A00%3A52_000Z"
+    },
+    {
+      "username": "W00DS_eth",
+      "lastTimestampScrape": "2025-09-17T21%3A03%3A07_000Z"
+    },
+    {
+      "username": "TheDogePoundNFT",
+      "lastTimestampScrape": "2025-09-17T17%3A29%3A55_000Z"
+    },
+    {
+      "username": "naiivememe",
+      "lastTimestampScrape": "2025-09-17T23%3A13%3A00_000Z"
+    },
+    {
+      "username": "ClassicsCrypto",
+      "lastTimestampScrape": "2025-09-17T21%3A26%3A11_000Z"
+    },
+    {
+      "username": "MaddKingMaddox",
+      "lastTimestampScrape": "2025-09-17T21%3A46%3A08_000Z"
+    },
+    {
+      "username": "rilso_y",
+      "lastTimestampScrape": "2025-08-01T09%3A08%3A38_000Z"
+    }
+  ],
+  "apiKey": "8c692c9487c54f9f814ae5823b7a0eba",
+  "maxPages": 10,
+  "storageFolder": {
+    "csv": "storecsv",
+    "json": "storejson"
+  }
+}

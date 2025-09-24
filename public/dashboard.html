@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Engagement Dashboard</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/plugin/relativeTime.js"></script>
+    <script>
+        dayjs.extend(window.dayjs_plugin_relativeTime);
+    </script>
+    <style>
+        :root {
+            --primary: #1da1f2;
+            --background: #15202b;
+            --card-bg: #192734;
+            --text: #ffffff;
+            --text-muted: #8899a6;
+            --border: #38444d;
+            --success: #17bf63;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            background: rgba(29, 161, 242, 0.1);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tweet-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tweet-card.engaged {
+            border-left: 4px solid var(--success);
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tweet-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .tweet-user {
+            flex: 1;
+        }
+
+        .tweet-name {
+            font-weight: bold;
+            color: var(--text);
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .tweet-username {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .tweet-time {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .tweet-content {
+            margin: 10px 0;
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+
+        .tweet-stats {
+            display: flex;
+            color: var(--text-muted);
+            font-size: 14px;
+            gap: 15px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tweet-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tweet-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            gap: 10px;
+        }
+
+        .tweet-actions button {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 5px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tweet-actions button:hover {
+            background: rgba(29, 161, 242, 0.1);
+            color: var(--primary);
+        }
+
+        .tweet-actions button.engaged {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .tweet-actions button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 1.2em;
+        }
+
+        .no-tweets {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .mention, .hashtag, .url {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .mention:hover, .hashtag:hover, .url:hover {
+            text-decoration: underline;
+        }
+
+        .engagement-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .tweet-card.engaged .engagement-status {
+            display: block;
+        }
+
+        .tweet-image {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .tweet-video {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+            </svg>
+            Back to Scraper
+        </a>
+        <h1>Engagement Dashboard</h1>
+        <div></div>
+    </div>
+
+    <div id="dashboard-content">
+        <div class="loading">Loading tweets...</div>
+    </div>
+
+    <script>
+        // Process tweet text to make mentions, hashtags, and URLs clickable
+        function processTweetText(text) {
+            if (!text) return '';
+            
+            // Replace URLs
+            let processedText = text.replace(/(https?:\/\/[^\s]+)/g, 
+                '<a href="$&" class="url" target="_blank" rel="noopener noreferrer">$&</a>');
+                
+            // Replace mentions
+            processedText = processedText.replace(/@(\w+)/g, 
+                '<a href="https://twitter.com/$1" class="mention" target="_blank" rel="noopener noreferrer">@$1</a>');
+                
+            // Replace hashtags
+            processedText = processedText.replace(/#(\w+)/g, 
+                '<a href="https://twitter.com/hashtag/$1" class="hashtag" target="_blank" rel="noopener noreferrer">#$1</a>');
+                
+            return processedText;
+        }
+
+        // Format date to relative time
+        function formatDate(dateString) {
+            return dayjs(dateString).fromNow();
+        }
+
+        // Format numbers with K, M, B suffixes
+        function formatNumber(num) {
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(1) + 'B';
+            }
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        // Check if a tweet has been engaged with
+        function isTweetEngaged(tweetId) {
+            const engagedTweets = JSON.parse(localStorage.getItem('engagedTweets') || '[]');
+            return engagedTweets.includes(tweetId);
+        }
+
+        // Mark a tweet as engaged
+        function markTweetAsEngaged(tweetId) {
+            const engagedTweets = JSON.parse(localStorage.getItem('engagedTweets') || '[]');
+            if (!engagedTweets.includes(tweetId)) {
+                engagedTweets.push(tweetId);
+                localStorage.setItem('engagedTweets', JSON.stringify(engagedTweets));
+                return true;
+            }
+            return false;
+        }
+
+        // Toggle engagement status
+        function toggleEngagement(tweetId, button) {
+            const wasEngaged = button.classList.contains('engaged');
+            
+            if (wasEngaged) {
+                // Remove from engaged tweets
+                const engagedTweets = JSON.parse(localStorage.getItem('engagedTweets') || '[]');
+                const updatedTweets = engagedTweets.filter(id => id !== tweetId);
+                localStorage.setItem('engagedTweets', JSON.stringify(updatedTweets));
+                
+                // Update UI
+                button.classList.remove('engaged');
+                button.closest('.tweet-card').classList.remove('engaged');
+                button.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12z"></path>
+                    </svg>
+                    Engage
+                `;
+            } else {
+                // Add to engaged tweets
+                markTweetAsEngaged(tweetId);
+                
+                // Update UI
+                button.classList.add('engaged');
+                button.closest('.tweet-card').classList.add('engaged');
+                button.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12z"></path>
+                    </svg>
+                    Engaged!
+                `;
+                
+                // Open tweet in new tab
+                window.open(`https://twitter.com/i/web/status/${tweetId}`, '_blank');
+            }
+        }
+
+        // Fetch and display tweets from the store
+        async function loadTweets() {
+            const dashboardContent = document.getElementById('dashboard-content');
+            
+            try {
+                // Step 1: fetch list of users
+                const usersRes = await fetch('https://5837-206-81-3-128.ngrok-free.app/api/users');
+                if (!usersRes.ok) {
+                    throw new Error(`Failed to fetch users. status: ${usersRes.status}`);
+                }
+                const usersData = await usersRes.json();
+                const usernames = (usersData.users || []).map(u => u.username);
+
+                if (usernames.length === 0) {
+                    dashboardContent.innerHTML = '<div class="no-tweets">No users configured. Please add users first.</div>';
+                    return;
+                }
+
+                // Step 2: fetch tweets for each user in parallel
+                const tweetsArrays = await Promise.all(
+                    usernames.map(async (uname) => {
+                        try {
+                            const res = await fetch(`https://5837-206-81-3-128.ngrok-free.app/api/tweets/${encodeURIComponent(uname)}`);
+                            if (!res.ok) throw new Error(`status ${res.status}`);
+                            const json = await res.json();
+                            return Array.isArray(json.tweets) ? json.tweets : [];
+                        } catch (e) {
+                            console.error(`Failed fetching tweets for ${uname}:`, e);
+                            return [];
+                        }
+                    })
+                );
+
+                // Flatten all tweets into one array
+                const allTweets = tweetsArrays.flat();
+
+                if (allTweets.length > 0) {
+                    // Sort tweets by date (newest first)
+                    const sortedTweets = [...allTweets].sort((a, b) => {
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    });
+                    
+                    // Filter out reply tweets (support different key casings and string values)
+                    const nonReplyTweets = sortedTweets.filter(tweet => {
+                        const flag = tweet.isReply ?? tweet.isreply ?? tweet.is_reply;
+                        if (typeof flag === 'string') {
+                            return flag.toLowerCase() !== 'true';
+                        }
+                        return !flag; // undefined, null, false treated as non-reply
+                    });
+                    
+                    if (nonReplyTweets.length === 0) {
+                        dashboardContent.innerHTML = '<div class="no-tweets">No tweets found in the store.</div>';
+                        return;
+                    }
+                    
+                    // Render tweets
+                    let html = '<div class="dashboard-grid">';
+                    
+                    nonReplyTweets.forEach(tweet => {
+                        // Resolve author details (support both Twitter API structure and scraper structure)
+                        const authorName = tweet.user?.name || tweet.author?.name || 'Unknown User';
+                        const authorUsername = tweet.user?.screen_name || tweet.author?.userName || 'unknown';
+                        const authorAvatar = tweet.user?.profile_image_url_https || tweet.author?.profilePicture || 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
+
+                        // Resolve counts
+                        const likeCnt = tweet.favorite_count ?? tweet.likeCount ?? 0;
+                        const rtCnt = tweet.retweet_count ?? tweet.retweetCount ?? 0;
+                        const replyCnt = tweet.reply_count ?? tweet.replyCount ?? 0;
+                        const isEngaged = isTweetEngaged(tweet.id);
+                        
+                        html += `
+                            <div class="tweet-card ${isEngaged ? 'engaged' : ''}">
+                                <div class="engagement-status">Engaged</div>
+                                <div class="tweet-header">
+                                    <img 
+                                        src="${authorAvatar}"
+                                        alt="${authorName}"
+                                        class="tweet-avatar"
+                                    >
+                                    <div class="tweet-user">
+                                        <a href="https://twitter.com/${authorUsername}" class="tweet-name" target="_blank" rel="noopener noreferrer">
+                                            ${authorName}
+                                        </a>
+                                        <a href="https://twitter.com/${authorUsername}" class="tweet-username" target="_blank" rel="noopener noreferrer">
+                                            @${authorUsername}
+                                        </a>
+                                        <div class="tweet-time">${formatDate(tweet.createdAt || tweet.created_at)}</div>
+                                    </div>
+                                </div>
+                                <div class="tweet-content">
+                                    ${processTweetText(tweet.full_text || tweet.text || '')}
+                                </div>
+                                ${tweet.extended_entities?.media?.[0]?.type === 'photo' ? `
+                                    <img src="${tweet.extended_entities.media[0].media_url_https}" alt="Tweet media" class="tweet-image">
+                                ` : ''}
+                                ${tweet.extended_entities?.media?.[0]?.type === 'video' ? `
+                                    <video controls class="tweet-video">
+                                        <source src="${tweet.extended_entities.media[0].video_info?.variants?.[0]?.url || ''}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                ` : ''}
+                                <div class="tweet-stats">
+                                    <div class="tweet-stat">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.8 0 4.1 3.2 7.3 7.2 7.3h.2v-5.3h-2v-4h2V8.8c0-1.4.4-2.6 1.3-3.7.9-1 2.1-1.5 3.5-1.5 1.3 0 2.4.1 2.8.2v3.2h-1.9c-1 0-1.1.5-1.1 1.1v1.9h3.5l-.5 4h-3v5.3c2.2-.3 4.2-1.3 5.8-2.8 1.6-1.6 2.5-3.6 2.8-5.8h-2.1c-.3 1.8-1.1 3.4-2.3 4.6-1.2 1.2-2.8 2-4.6 2.3v-2.1c1.3-.2 2.5-.8 3.5-1.7 1-1 1.6-2.2 1.7-3.5h-5.2z"></path>
+                                        </svg>
+                                        ${formatNumber(likeCnt)}
+                                    </div>
+                                    <div class="tweet-stat">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path>
+                                        </svg>
+                                        ${formatNumber(rtCnt)}
+                                    </div>
+                                    <div class="tweet-stat">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.8 0 4.1 3.2 7.3 7.2 7.3h.2v5.3h-2v-4h-2.2c-2.1 0-4.1-1.7-4.1-4.1 0-2.9 2.4-5.2 5.3-5.2h2.5v-2.8c0-1.3.5-2.6 1.4-3.5.9-.9 2.2-1.4 3.5-1.4s2.6.5 3.5 1.4l1.5-1.5c-1.3-1.3-3-1.9-4.9-1.9z"></path>
+                                        </svg>
+                                        ${formatNumber(replyCnt)}
+                                    </div>
+                                </div>
+                                <div class="tweet-actions">
+                                    <button class="${isEngaged ? 'engaged' : ''}" 
+                                            onclick="toggleEngagement('${tweet.id_str || tweet.id}', this)">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12z"></path>
+                                        </svg>
+                                        ${isEngaged ? 'Engaged!' : 'Engage'}
+                                    </button>
+                                    <a href="https://twitter.com/${authorUsername}/status/${tweet.id_str || tweet.id}" 
+                                       target="_blank" 
+                                       rel="noopener noreferrer"
+                                       class="tweet-actions__link">
+                                        <button>
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M18.36 5.64c-1.95-1.96-5.11-1.96-7.07 0L9.88 7.05 8.46 5.64l1.42-1.42c2.73-2.73 7.07-2.73 9.8 0 2.73 2.73 2.73 7.07 0 9.8l-1.42 1.42-1.41-1.42 1.41-1.41c1.96-1.96 1.96-5.12 0-7.07zm-2.12 3.53l-7.07 7.07-1.41-1.41 7.07-7.07 1.41 1.41zm-9.9 1.41l1.41 1.41-1.42 1.42c-1.96 1.96-1.96 5.12 0 7.07 1.95 1.96 5.11 1.96 7.07 0l1.42-1.42-1.41-1.41-1.41 1.41c-1.17 1.17-3.07 1.17-4.24 0-1.17-1.17-1.17-3.07 0-4.24l1.41-1.41z"></path>
+                                            </svg>
+                                            View
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    dashboardContent.innerHTML = html;
+                } else {
+                    dashboardContent.innerHTML = '<div class="no-tweets">No tweets found. Try running the scraper first.</div>';
+                }
+            } catch (error) {
+                console.error('Error loading tweets:', error);
+                dashboardContent.innerHTML = `
+                    <div class="no-tweets">
+                        <p>Error loading tweets. Please try again later.</p>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load tweets when the page loads
+        document.addEventListener('DOMContentLoaded', loadTweets);
+    </script>
+</body>
+</html>
