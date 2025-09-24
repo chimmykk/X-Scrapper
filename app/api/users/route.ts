@@ -28,6 +28,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid or missing username" }, { status: 400 })
     }
 
+    console.log(`[v0] Adding new user: ${username}`)
+
     const scraper = new TwitterScraper()
     await scraper.loadConfig()
     const config = scraper.getConfig()
@@ -50,7 +52,21 @@ export async function POST(request: NextRequest) {
 
     // Add new user to the users array
     config.users.push(newUser)
+
+    console.log(`[v0] Saving config with new user: ${username}`)
+    console.log(`[v0] Total users in config: ${config.users.length}`)
+
     await scraper.saveConfig()
+    console.log(`[v0] Config saved successfully for user: ${username}`)
+
+    await scraper.ensureDirectories()
+
+    try {
+      await scraper.saveData(username, [], "json")
+      console.log(`[v0] Created empty JSON file for new user: ${username}`)
+    } catch (fileError) {
+      console.error(`[v0] Error creating JSON file for ${username}:`, fileError)
+    }
 
     // Restart cron job to pick up the new user
     try {

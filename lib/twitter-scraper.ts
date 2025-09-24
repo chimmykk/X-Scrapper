@@ -253,11 +253,17 @@ export class TwitterScraper {
     const { username } = userConfig
     console.log(`\nScraping tweets for: ${username}`)
 
+    await this.ensureDirectories()
+
     const existingTweets = await this.loadExistingData(username, "json")
     if (existingTweets === null) {
-      // Create empty JSON file for new users
-      await this.saveData(username, [], "json")
-      console.log(`Created empty JSON file for new user: ${username}`)
+      try {
+        await this.saveData(username, [], "json")
+        console.log(`Created empty JSON file for new user: ${username}`)
+      } catch (error) {
+        console.error(`Failed to create JSON file for ${username}:`, error)
+        throw error
+      }
     }
 
     let since = userConfig.lastTimestampScrape
