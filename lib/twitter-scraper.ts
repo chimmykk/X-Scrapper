@@ -173,6 +173,7 @@ export class TwitterScraper {
       const existing = (await this.loadExistingData(username, "json")) || []
       const combined = [...existing, ...tweets]
       await fs.writeFile(filepath, JSON.stringify(combined, null, 2))
+      console.log(`JSON file saved/updated for ${username}: ${filepath}`)
     } else {
       await this.saveToCsv(filepath, tweets)
     }
@@ -251,6 +252,13 @@ export class TwitterScraper {
 
     const { username } = userConfig
     console.log(`\nScraping tweets for: ${username}`)
+
+    const existingTweets = await this.loadExistingData(username, "json")
+    if (existingTweets === null) {
+      // Create empty JSON file for new users
+      await this.saveData(username, [], "json")
+      console.log(`Created empty JSON file for new user: ${username}`)
+    }
 
     let since = userConfig.lastTimestampScrape
     if (!since) {
