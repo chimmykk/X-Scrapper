@@ -89,64 +89,10 @@ export function UserSidebar({ onUserSelect }: UserSidebarProps) {
     }
   }
 
-  const exportTweets = async (username: string) => {
-    try {
-      const response = await fetch(`/api/tweets/${encodeURIComponent(username)}`)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const data = await response.json()
-
-      if (data.success && data.tweets && data.tweets.length > 0) {
-        // Convert to CSV
-        const flatTweets = data.tweets.map((tweet: any) => ({
-          id: tweet.id,
-          text: tweet.text?.replace(/[\n\r]+/g, " ") || "",
-          createdAt: tweet.createdAt,
-          likes: tweet.likeCount || 0,
-          retweets: tweet.retweetCount || 0,
-          replies: tweet.replyCount || 0,
-          url: `https://twitter.com/${tweet.author?.userName}/status/${tweet.id}`,
-          author: tweet.author?.name || "",
-          username: tweet.author?.userName || "",
-        }))
-
-        const csv = convertToCSV(flatTweets)
-        downloadCSV(csv, `${username}_tweets_${new Date().toISOString().split("T")[0]}.csv`)
-      } else {
-        alert("No tweets found to export")
-      }
-    } catch (error) {
-      console.error("Error exporting CSV:", error)
-      alert("Failed to export tweets")
-    }
-  }
-
-  const convertToCSV = (items: any[]) => {
-    if (!items || !items.length) return ""
-
-    const headers = Object.keys(items[0])
-    const csvRows = [headers.join(",")]
-
-    for (const item of items) {
-      const values = headers.map((header) => {
-        const value = item[header] !== undefined ? item[header] : ""
-        const escaped = String(value).replace(/"/g, '""')
-        return `"${escaped}"`
-      })
-      csvRows.push(values.join(","))
-    }
-
-    return csvRows.join("\n")
-  }
-
-  const downloadCSV = (csv: string, filename: string) => {
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" })
-    const url = URL.createObjectURL(blob)
+  const downloadUserCSV = (username: string) => {
     const link = document.createElement("a")
-    link.setAttribute("href", url)
-    link.setAttribute("download", filename)
-    link.style.visibility = "hidden"
+    link.href = `/api/bulk-scraper/download/${encodeURIComponent(username)}`
+    link.download = `${username}_tweets.csv`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -204,7 +150,7 @@ export function UserSidebar({ onUserSelect }: UserSidebarProps) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => exportTweets(user.username)}
+                      onClick={() => downloadUserCSV(user.username)}
                       className="h-6 w-6 p-0"
                     >
                       <Download className="h-3 w-3" />

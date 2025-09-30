@@ -1,0 +1,523 @@
+[
+  {
+    "type": "tweet",
+    "id": "1972837996698497468",
+    "url": "https://x.com/JohnLemonNFT/status/1972837996698497468",
+    "twitterUrl": "https://twitter.com/JohnLemonNFT/status/1972837996698497468",
+    "text": "Some nice sweeps of @TheDogePoundNFT today 👀",
+    "source": "Twitter for iPhone",
+    "retweetCount": 5,
+    "replyCount": 9,
+    "likeCount": 22,
+    "quoteCount": 0,
+    "viewCount": 1701,
+    "createdAt": "Tue Sep 30 01:36:46 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 0,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1972837996698497468",
+    "displayTextRange": [
+      0,
+      44
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "JohnLemonNFT",
+      "url": "https://x.com/JohnLemonNFT",
+      "twitterUrl": "https://twitter.com/JohnLemonNFT",
+      "id": "1467238393696469003",
+      "name": "John Lemon 🍋 🐶",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1960376904621359112/PbMqpaLA_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1467238393696469003/1638802485",
+      "description": "",
+      "location": "Doge Pound",
+      "followers": 19811,
+      "following": 2486,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Sat Dec 04 21:04:38 +0000 2021",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16636,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1157,
+      "statusesCount": 10318,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [],
+      "profile_bio": {
+        "description": "Husband & Girl Dad. Founder - @thedogepoundnft, investor @iglooinc, founder - @mintpadco",
+        "entities": {
+          "description": {
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  30,
+                  46
+                ],
+                "name": "",
+                "screen_name": "thedogepoundnft"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  57,
+                  66
+                ],
+                "name": "",
+                "screen_name": "iglooinc"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  78,
+                  88
+                ],
+                "name": "",
+                "screen_name": "mintpadco"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {},
+    "card": null,
+    "place": {},
+    "entities": {
+      "user_mentions": [
+        {
+          "id_str": "1377713365431296001",
+          "indices": [
+            20,
+            36
+          ],
+          "name": "Doge Pound 🐶",
+          "screen_name": "TheDogePoundNFT"
+        }
+      ]
+    },
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1970864663832510823",
+    "url": "https://x.com/JohnLemonNFT/status/1970864663832510823",
+    "twitterUrl": "https://twitter.com/JohnLemonNFT/status/1970864663832510823",
+    "text": "Day 2 of Giphy growth for @TheDogePoundNFT 🚀\n\nI won't be posting results daily, but we now have a system in place for GIFs that will grow faster than 99% of brands https://t.co/E7yv3t0yBy",
+    "source": "Twitter for iPhone",
+    "retweetCount": 8,
+    "replyCount": 13,
+    "likeCount": 43,
+    "quoteCount": 0,
+    "viewCount": 1961,
+    "createdAt": "Wed Sep 24 14:55:27 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 1,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1970864663832510823",
+    "displayTextRange": [
+      0,
+      163
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "JohnLemonNFT",
+      "url": "https://x.com/JohnLemonNFT",
+      "twitterUrl": "https://twitter.com/JohnLemonNFT",
+      "id": "1467238393696469003",
+      "name": "John Lemon 🍋 🐶",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1960376904621359112/PbMqpaLA_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1467238393696469003/1638802485",
+      "description": "",
+      "location": "Doge Pound",
+      "followers": 19811,
+      "following": 2486,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Sat Dec 04 21:04:38 +0000 2021",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16636,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1157,
+      "statusesCount": 10318,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [],
+      "profile_bio": {
+        "description": "Husband & Girl Dad. Founder - @thedogepoundnft, investor @iglooinc, founder - @mintpadco",
+        "entities": {
+          "description": {
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  30,
+                  46
+                ],
+                "name": "",
+                "screen_name": "thedogepoundnft"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  57,
+                  66
+                ],
+                "name": "",
+                "screen_name": "iglooinc"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  78,
+                  88
+                ],
+                "name": "",
+                "screen_name": "mintpadco"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {
+      "media": [
+        {
+          "allow_download_status": {
+            "allow_download": true
+          },
+          "display_url": "pic.twitter.com/E7yv3t0yBy",
+          "expanded_url": "https://twitter.com/JohnLemonNFT/status/1970864663832510823/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "features": {
+            "large": {},
+            "orig": {}
+          },
+          "id_str": "1970863751982133248",
+          "indices": [
+            164,
+            187
+          ],
+          "media_key": "3_1970863751982133248",
+          "media_results": {
+            "id": "QXBpTWVkaWFSZXN1bHRzOgwAAQoAARtZ6iPtlrAACgACG1nq+DwbQWcAAA==",
+            "result": {
+              "__typename": "ApiMedia",
+              "id": "QXBpTWVkaWE6DAABCgABG1nqI+2WsAAKAAIbWer4PBtBZwAA",
+              "media_key": "3_1970863751982133248"
+            }
+          },
+          "media_url_https": "https://pbs.twimg.com/media/G1nqI-2WsAAndiu.jpg",
+          "original_info": {
+            "focus_rects": [
+              {
+                "h": 672,
+                "w": 1200,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 672,
+                "w": 672,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 672,
+                "w": 589,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 672,
+                "w": 336,
+                "x": 29,
+                "y": 0
+              },
+              {
+                "h": 672,
+                "w": 1582,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "height": 672,
+            "width": 1582
+          },
+          "sizes": {
+            "large": {
+              "h": 672,
+              "w": 1582
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/E7yv3t0yBy"
+        }
+      ]
+    },
+    "card": null,
+    "place": {},
+    "entities": {
+      "user_mentions": [
+        {
+          "id_str": "1377713365431296001",
+          "indices": [
+            26,
+            42
+          ],
+          "name": "Doge Pound 🐶",
+          "screen_name": "TheDogePoundNFT"
+        }
+      ]
+    },
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1970543985950142593",
+    "url": "https://x.com/JohnLemonNFT/status/1970543985950142593",
+    "twitterUrl": "https://twitter.com/JohnLemonNFT/status/1970543985950142593",
+    "text": "Day 1 of Giphy takeover starts today\n\nI expect within a couple of months that @TheDogePoundNFT will be the 2nd most viewed NFT brand on Giphy behind @pudgypenguins https://t.co/sOL5yIar05",
+    "source": "Twitter for iPhone",
+    "retweetCount": 11,
+    "replyCount": 12,
+    "likeCount": 33,
+    "quoteCount": 0,
+    "viewCount": 1417,
+    "createdAt": "Tue Sep 23 17:41:11 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 0,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1970543985950142593",
+    "displayTextRange": [
+      0,
+      163
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "JohnLemonNFT",
+      "url": "https://x.com/JohnLemonNFT",
+      "twitterUrl": "https://twitter.com/JohnLemonNFT",
+      "id": "1467238393696469003",
+      "name": "John Lemon 🍋 🐶",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1960376904621359112/PbMqpaLA_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1467238393696469003/1638802485",
+      "description": "",
+      "location": "Doge Pound",
+      "followers": 19811,
+      "following": 2486,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Sat Dec 04 21:04:38 +0000 2021",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16636,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1157,
+      "statusesCount": 10318,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [],
+      "profile_bio": {
+        "description": "Husband & Girl Dad. Founder - @thedogepoundnft, investor @iglooinc, founder - @mintpadco",
+        "entities": {
+          "description": {
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  30,
+                  46
+                ],
+                "name": "",
+                "screen_name": "thedogepoundnft"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  57,
+                  66
+                ],
+                "name": "",
+                "screen_name": "iglooinc"
+              },
+              {
+                "id_str": "0",
+                "indices": [
+                  78,
+                  88
+                ],
+                "name": "",
+                "screen_name": "mintpadco"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {
+      "media": [
+        {
+          "allow_download_status": {
+            "allow_download": true
+          },
+          "display_url": "pic.twitter.com/sOL5yIar05",
+          "expanded_url": "https://twitter.com/JohnLemonNFT/status/1970543985950142593/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "features": {
+            "large": {},
+            "orig": {}
+          },
+          "id_str": "1970543525314899968",
+          "indices": [
+            164,
+            187
+          ],
+          "media_key": "3_1970543525314899968",
+          "media_results": {
+            "id": "QXBpTWVkaWFSZXN1bHRzOgwAAQoAARtYxuVY1zAACgACG1jHUJjXMIEAAA==",
+            "result": {
+              "__typename": "ApiMedia",
+              "id": "QXBpTWVkaWE6DAABCgABG1jG5VjXMAAKAAIbWMdQmNcwgQAA",
+              "media_key": "3_1970543525314899968"
+            }
+          },
+          "media_url_https": "https://pbs.twimg.com/media/G1jG5VjXMAAr-JC.jpg",
+          "original_info": {
+            "focus_rects": [
+              {
+                "h": 676,
+                "w": 1207,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 676,
+                "w": 676,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 676,
+                "w": 593,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 676,
+                "w": 338,
+                "x": 28,
+                "y": 0
+              },
+              {
+                "h": 676,
+                "w": 1584,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "height": 676,
+            "width": 1584
+          },
+          "sizes": {
+            "large": {
+              "h": 676,
+              "w": 1584
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/sOL5yIar05"
+        }
+      ]
+    },
+    "card": null,
+    "place": {},
+    "entities": {
+      "user_mentions": [
+        {
+          "id_str": "1377713365431296001",
+          "indices": [
+            78,
+            94
+          ],
+          "name": "Doge Pound 🐶",
+          "screen_name": "TheDogePoundNFT"
+        },
+        {
+          "id_str": "1415078650039443456",
+          "indices": [
+            149,
+            163
+          ],
+          "name": "Pudgy Penguins",
+          "screen_name": "pudgypenguins"
+        }
+      ]
+    },
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  }
+]

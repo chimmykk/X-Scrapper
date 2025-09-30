@@ -108,7 +108,7 @@ export class TwitterScraper {
     const baseUrl = "https://api.twitterapi.io/twitter/tweet/advanced_search"
     const queryParams = new URLSearchParams({
       queryType: "Latest",
-      query: `from:${username} since:${sinceTimestamp}`,
+      query: `from:${username} since:${sinceTimestamp} -filter:nativeretweets -filter:retweets`,
     })
 
     if (cursor) {
