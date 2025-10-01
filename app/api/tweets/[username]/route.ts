@@ -5,6 +5,8 @@ import path from "path"
 export async function GET(request: NextRequest, { params }: { params: { username: string } }) {
   try {
     const { username } = params
+    const { searchParams } = new URL(request.url)
+    const limit = parseInt(searchParams.get('limit') || '10')
 
     // Path to the JSON file - using storejson/{username}.json structure
     const filePath = path.join(process.cwd(), "storejson", `${username}.json`)
@@ -13,7 +15,11 @@ export async function GET(request: NextRequest, { params }: { params: { username
       // Try to read the JSON file
       const data = await fs.readFile(filePath, "utf8")
       const tweets = JSON.parse(data)
-      return NextResponse.json({ success: true, tweets })
+      
+      // Apply limit if specified
+      const limitedTweets = limit > 0 ? tweets.slice(0, limit) : tweets
+      
+      return NextResponse.json({ success: true, tweets: limitedTweets })
     } catch (fileError: any) {
       // If file doesn't exist (ENOENT), return empty array for new users
       if (fileError.code === "ENOENT") {

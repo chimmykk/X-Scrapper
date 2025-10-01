@@ -107,18 +107,18 @@ export function CronControl() {
   }
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 bg-gray-800 border-gray-700">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold">Scraper Control</h3>
-          <Badge variant={cronStatus.isRunning ? "default" : "secondary"}>
+          <h3 className="font-semibold text-white">Scraper Control</h3>
+          <Badge variant={cronStatus.isRunning ? "default" : "secondary"} className={cronStatus.isRunning ? "bg-green-600" : "bg-gray-600"}>
             {cronStatus.isRunning ? "Running" : "Stopped"}
           </Badge>
         </div>
 
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Label htmlFor="interval" className="text-sm">
+            <Label htmlFor="interval" className="text-sm text-gray-300">
               Interval (minutes):
             </Label>
             <Input
@@ -126,23 +126,23 @@ export function CronControl() {
               type="number"
               value={intervalMinutes}
               onChange={(e) => setIntervalMinutes(Number(e.target.value))}
-              className="w-20"
+              className="w-20 bg-gray-700 border-gray-600 text-white"
               min="1"
               disabled={cronStatus.isRunning}
             />
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-gray-400">
               ({Math.floor(intervalMinutes / 60)}h {intervalMinutes % 60}m)
             </span>
           </div>
 
           <div className="flex gap-2">
             {!cronStatus.isRunning ? (
-              <Button onClick={startCronJob} disabled={isLoading} size="sm" className="flex-1">
+              <Button onClick={startCronJob} disabled={isLoading} size="sm" className="flex-1 bg-green-600 hover:bg-green-700 text-white">
                 {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
                 Start Auto-Scraper
               </Button>
             ) : (
-              <Button onClick={stopCronJob} disabled={isLoading} variant="destructive" size="sm" className="flex-1">
+              <Button onClick={stopCronJob} disabled={isLoading} variant="destructive" size="sm" className="flex-1 bg-red-600 hover:bg-red-700">
                 {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Square className="w-4 h-4 mr-2" />}
                 Stop Auto-Scraper
               </Button>
@@ -154,7 +154,7 @@ export function CronControl() {
             disabled={isRunningManual}
             variant="outline"
             size="sm"
-            className="w-full bg-transparent"
+            className="w-full bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
           >
             {isRunningManual ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -165,7 +165,7 @@ export function CronControl() {
           </Button>
         </div>
 
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs text-gray-400">
           <p>Auto-scraper runs every {intervalMinutes} minutes when active.</p>
           <p>Manual run executes immediately regardless of auto-scraper status.</p>
         </div>
