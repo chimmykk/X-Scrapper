@@ -17,9 +17,7 @@ interface UserSidebarProps {
 
 export function UserSidebar({ onUserSelect }: UserSidebarProps) {
   const [users, setUsers] = useState<User[]>([])
-  const [newUsername, setNewUsername] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [isAddingUser, setIsAddingUser] = useState(false)
 
   useEffect(() => {
     loadUsers()
@@ -28,57 +26,24 @@ export function UserSidebar({ onUserSelect }: UserSidebarProps) {
   const loadUsers = async () => {
     try {
       setIsLoading(true)
-      // Load users from both API and file system
-      const [apiResponse, fsResponse] = await Promise.allSettled([
-        fetch("/api/users").then(res => res.ok ? res.json() : null),
-        fetch("/api/users/from-files").then(res => res.ok ? res.json() : null)
-      ])
-
-      const apiUsers = apiResponse.status === 'fulfilled' ? (apiResponse.value?.users || []) : []
-      const fsUsers = fsResponse.status === 'fulfilled' ? (fsResponse.value?.users || []) : []
+      // Load users only from config.json (via /api/users)
+      const response = await fetch("/api/users")
       
-      // Combine and deduplicate users
-      const allUsers = [...apiUsers, ...fsUsers]
-      const uniqueUsers = allUsers.filter((user, index, self) => 
-        index === self.findIndex(u => u.username === user.username)
-      )
-      
-      setUsers(uniqueUsers)
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data.users || [])
+      } else {
+        console.error("Failed to load users from config")
+        setUsers([])
+      }
     } catch (error) {
       console.error("Error loading users:", error)
+      setUsers([])
     } finally {
       setIsLoading(false)
     }
   }
 
-  const addUser = async () => {
-    if (!newUsername.trim()) return
-
-    try {
-      setIsAddingUser(true)
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: newUsername.trim() }),
-      })
-
-      if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || "Failed to add user")
-      }
-
-      setNewUsername("")
-      await loadUsers()
-      onUserSelect(newUsername.trim())
-    } catch (error) {
-      console.error("Error adding user:", error)
-      alert(error instanceof Error ? error.message : "Failed to add user")
-    } finally {
-      setIsAddingUser(false)
-    }
-  }
 
   const deleteUser = async (username: string) => {
     if (!confirm(`Remove @${username} from tracked users?`)) return
@@ -122,24 +87,6 @@ export function UserSidebar({ onUserSelect }: UserSidebarProps) {
 
         <div>
           <h3 className="font-semibold mb-3 text-white">Manage Users</h3>
-          <div className="flex gap-2 mb-4">
-            <Input
-              type="text"
-              placeholder="Enter username"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && addUser()}
-              className="flex-1 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-            />
-            <Button 
-              onClick={addUser} 
-              disabled={isAddingUser || !newUsername.trim()} 
-              size="sm"
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              {isAddingUser ? <Loader2 className="h-4 w-4 animate-spin" /> : "Add"}
-            </Button>
-          </div>
         </div>
 
         <div>

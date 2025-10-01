@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { searchLiveTweets } from "@/lib/live-twitter-scraper"
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,28 +9,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid or missing search query" }, { status: 400 })
     }
 
-    // Use the exact API call as specified
-    const url = 'https://api.twitterapi.io/twitter/tweet/advanced_search?queryType=Latest'
-    const queryParams = new URLSearchParams({
-      query: searchQuery,
-      limit: resultCount.toString()
-    })
-    
-    const fullUrl = `${url}&${queryParams.toString()}`
-
-    const options = {
-      method: 'GET', 
-      headers: {
-        'X-API-Key': '8c692c9487c54f9f814ae5823b7a0eba'
-      }
-    }
-
-    const response = await fetch(fullUrl, options)
-    const data = await response.json()
+    // Use the dedicated live scraper
+    const result = await searchLiveTweets(searchQuery, resultCount)
     
     return NextResponse.json({
       success: true,
-      data: data,
+      data: {
+        tweets: result.tweets,
+        totalCount: result.totalCount
+      },
       query: searchQuery
     })
 

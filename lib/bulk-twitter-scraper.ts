@@ -43,12 +43,37 @@ export interface BulkProgress {
 }
 
 export class BulkTwitterScraper {
-  private apiKey = "8c692c9487c54f9f814ae5823b7a0eba" // From config.json
+  private configPath: string
+  private config: any = null
+
+  constructor(configPath = "config.json") {
+    this.configPath = path.join(process.cwd(), configPath)
+  }
+
+  async loadConfig(): Promise<void> {
+    try {
+      const configData = await fs.readFile(this.configPath, "utf8")
+      this.config = JSON.parse(configData)
+    } catch (error) {
+      throw new Error(`Failed to load config.json: ${error instanceof Error ? error.message : "Unknown error"}`)
+    }
+  }
+
+  async saveConfig(): Promise<void> {
+    if (!this.config) {
+      throw new Error("Config not loaded")
+    }
+    await fs.writeFile(this.configPath, JSON.stringify(this.config, null, 2))
+  }
 
   async ensureDirectories(): Promise<void> {
+    if (!this.config) {
+      throw new Error("Config not loaded")
+    }
+
     const bulkDir = path.join(process.cwd(), "bulk-downloads")
-    const storeCsvDir = path.join(process.cwd(), "storecsv")
-    const storeJsonDir = path.join(process.cwd(), "storejson")
+    const storeCsvDir = path.join(process.cwd(), this.config.storageFolder.csv)
+    const storeJsonDir = path.join(process.cwd(), this.config.storageFolder.json)
     
     try {
       await fs.mkdir(bulkDir, { recursive: true })
@@ -60,10 +85,14 @@ export class BulkTwitterScraper {
   }
 
   async fetchTweets(username: string, sinceDate: string, cursor: string | null = null): Promise<any> {
+    if (!this.config) {
+      throw new Error("Config not loaded")
+    }
+
     const baseUrl = "https://api.twitterapi.io/twitter/tweet/advanced_search"
     const queryParams = new URLSearchParams({
       queryType: "Latest",
-      query: `from:${username} since:${sinceDate}`,
+      query: `from:${username} since:${sinceDate} -filter:nativeretweets -filter:retweets`,
     })
 
     if (cursor) {
@@ -78,7 +107,7 @@ export class BulkTwitterScraper {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "X-API-Key": this.apiKey,
+          "X-API-Key": this.config.apiKey,
         },
       })
 
@@ -179,6 +208,33 @@ export class BulkTwitterScraper {
     await fs.writeFile(filepath, JSON.stringify(allTweets, null, 2))
   }
 
+  async updateUserTimestamp(username: string, sinceDate: string): Promise<void> {
+    if (!this.config) {
+      throw new Error("Config not loaded")
+    }
+
+    // Find the user in config
+    const userIndex = this.config.users.findIndex((user: any) => user.username === username)
+    
+    if (userIndex !== -1) {
+      // Update existing user's timestamp
+      this.config.users[userIndex].lastTimestampScrape = sinceDate
+      console.log(`[v0] Updated lastTimestampScrape for ${username}: ${sinceDate}`)
+    } else {
+      // Add new user to config if not found
+      const newUser = {
+        username,
+        lastTimestampScrape: sinceDate
+      }
+      this.config.users.push(newUser)
+      console.log(`[v0] Added new user ${username} to config with timestamp: ${sinceDate}`)
+    }
+
+    // Save updated config
+    await this.saveConfig()
+    console.log(`[v0] Config.json updated for user: ${username}`)
+  }
+
   async scrapeUserBulk(
     username: string,
     sinceDate: string,
@@ -188,12 +244,17 @@ export class BulkTwitterScraper {
   ): Promise<BulkScrapingResult> {
     console.log(`[v0] Starting bulk scrape for: ${username} since: ${sinceDate}`)
 
+    await this.loadConfig()
     await this.ensureDirectories()
 
-    // Use username-based file naming
-    const csvPath = path.join(process.cwd(), "storecsv", `${username}.csv`)
+    if (!this.config) {
+      throw new Error("Config not loaded")
+    }
+
+    // Use config-based paths
+    const csvPath = path.join(process.cwd(), this.config.storageFolder.csv, `${username}.csv`)
     const bulkCsvPath = path.join(process.cwd(), "bulk-downloads", `${username}.csv`)
-    const jsonPath = path.join(process.cwd(), "storejson", `${username}.json`)
+    const jsonPath = path.join(process.cwd(), this.config.storageFolder.json, `${username}.json`)
 
     // Check if files already exist to determine if we should append
     let isFirstBatch = true
@@ -286,6 +347,9 @@ export class BulkTwitterScraper {
         
         // Save JSON version to storejson
         await this.saveToJson(jsonPath, allTweets, isFirstBatch)
+
+        // Update config.json with lastTimestampScrape
+        await this.updateUserTimestamp(username, sinceDate)
       }
 
       return {

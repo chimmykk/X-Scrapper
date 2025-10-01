@@ -46,6 +46,8 @@
     "cors": "latest",
     "cron": "latest",
     "date-fns": "latest",
+    "dotenv": "latest",
+    "@google/generative-ai": "latest",
     "dayjs": "latest",
     "embla-carousel-react": "latest",
     "express": "latest",

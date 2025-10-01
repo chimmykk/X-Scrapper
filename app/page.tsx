@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import { X, Search, Settings, Brain, Download, Users, Clock } from "lucide-react"
 import { RealTimeDashboard } from "@/components/real-time-dashboard"
 import { UserSidebar } from "@/components/user-sidebar"
@@ -21,6 +24,13 @@ export default function HomePage() {
   const [showDashboard, setShowDashboard] = useState(false)
   const [searchResults, setSearchResults] = useState<any>(null)
   const [showSearchResults, setShowSearchResults] = useState(false)
+  
+  // AI Analysis states
+  const [showAIAnalysis, setShowAIAnalysis] = useState(false)
+  const [aiUsername, setAiUsername] = useState("")
+  const [aiQuery, setAiQuery] = useState("")
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [analysisResult, setAnalysisResult] = useState<any>(null)
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
@@ -55,6 +65,41 @@ export default function HomePage() {
       alert('Search failed. Please try again.')
     } finally {
       setIsSearching(false)
+    }
+  }
+
+  const handleAIAnalysis = async () => {
+    if (!aiUsername.trim() || !aiQuery.trim()) {
+      alert("Please enter both username and query")
+      return
+    }
+
+    setIsAnalyzing(true)
+    setAnalysisResult(null)
+
+    try {
+      const response = await fetch("/api/ai-analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: aiUsername.trim(),
+          query: aiQuery.trim(),
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setAnalysisResult(data)
+    } catch (error) {
+      console.error("Error analyzing with AI:", error)
+      alert("Failed to analyze with AI. Please try again.")
+    } finally {
+      setIsAnalyzing(false)
     }
   }
 
@@ -153,6 +198,14 @@ export default function HomePage() {
                 Bulk Download
               </Button>
             </Link>
+            <Button 
+              onClick={() => setShowAIAnalysis(true)} 
+              variant="outline" 
+              className="bg-gray-800 hover:bg-gray-700 border-gray-700"
+            >
+              <Brain className="w-4 h-4 mr-2" />
+              Analyze with AI
+            </Button>
           </div>
 
           {/* Search Results */}
@@ -230,6 +283,128 @@ export default function HomePage() {
               </div>
             </div>
           )}
+
+          {/* AI Analysis Dialog */}
+          <Dialog open={showAIAnalysis} onOpenChange={setShowAIAnalysis}>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Brain className="w-5 h-5" />
+                  AI Analysis
+                </DialogTitle>
+                <DialogDescription>
+                  Analyze user's tweets with AI to get insights and summaries.
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="ai-username">Username</Label>
+                  <Input
+                    id="ai-username"
+                    placeholder="Enter username (e.g., elonmusk)"
+                    value={aiUsername}
+                    onChange={(e) => setAiUsername(e.target.value)}
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="ai-query">Analysis Query</Label>
+                  <Textarea
+                    id="ai-query"
+                    placeholder="What would you like to analyze? (e.g., 'Analyze sentiment and key topics in recent tweets')"
+                    value={aiQuery}
+                    onChange={(e) => setAiQuery(e.target.value)}
+                    className="mt-1 min-h-[100px]"
+                  />
+                </div>
+
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={handleAIAnalysis} 
+                    disabled={isAnalyzing || !aiUsername.trim() || !aiQuery.trim()}
+                    className="flex-1"
+                  >
+                    {isAnalyzing ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <Brain className="w-4 h-4 mr-2" />
+                        Analyze with AI
+                      </>
+                    )}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowAIAnalysis(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+
+                {/* Analysis Results */}
+                {analysisResult && (
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <h3 className="font-semibold mb-3">Analysis Results</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <strong>Summary:</strong>
+                        <p className="text-sm text-gray-600 mt-1">{analysisResult.analysis?.summary}</p>
+                      </div>
+                      <div>
+                        <strong>Sentiment:</strong>
+                        <span className={`ml-2 px-2 py-1 rounded text-xs ${
+                          analysisResult.analysis?.sentiment === 'positive' ? 'bg-green-100 text-green-800' :
+                          analysisResult.analysis?.sentiment === 'negative' ? 'bg-red-100 text-red-800' :
+                          'bg-gray-100 text-gray-800'
+                        }`}>
+                          {analysisResult.analysis?.sentiment}
+                        </span>
+                      </div>
+                      {analysisResult.analysis?.keyInsights && analysisResult.analysis.keyInsights.length > 0 && (
+                        <div>
+                          <strong>Key Insights:</strong>
+                          <ul className="text-sm text-gray-600 mt-1 list-disc list-inside">
+                            {analysisResult.analysis.keyInsights.map((insight: string, index: number) => (
+                              <li key={index}>{insight}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {analysisResult.analysis?.topics && analysisResult.analysis.topics.length > 0 && (
+                        <div>
+                          <strong>Topics:</strong>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {analysisResult.analysis.topics.map((topic: string, index: number) => (
+                              <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                                {topic}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {analysisResult.analysis?.notableAccounts && analysisResult.analysis.notableAccounts.length > 0 && (
+                        <div>
+                          <strong>Notable Accounts:</strong>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {analysisResult.analysis.notableAccounts.map((account: string, index: number) => (
+                              <span key={index} className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+                                @{account}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
