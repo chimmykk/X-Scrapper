@@ -1,0 +1,990 @@
+[
+  {
+    "type": "tweet",
+    "id": "1973245785786761324",
+    "url": "https://x.com/notjoswayski/status/1973245785786761324",
+    "twitterUrl": "https://twitter.com/notjoswayski/status/1973245785786761324",
+    "text": "You spend an extra 5 seconds looking at a post and your entire feed algo changes",
+    "source": "Twitter for iPhone",
+    "retweetCount": 0,
+    "replyCount": 1,
+    "likeCount": 0,
+    "quoteCount": 0,
+    "viewCount": 251,
+    "createdAt": "Wed Oct 01 04:37:11 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 0,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1973245785786761324",
+    "displayTextRange": [
+      0,
+      80
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "notjoswayski",
+      "url": "https://x.com/notjoswayski",
+      "twitterUrl": "https://twitter.com/notjoswayski",
+      "id": "1628648550715346946",
+      "name": "Jose Valerio",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1740943465234497536/k2FoboJN_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1628648550715346946/1724428597",
+      "description": "",
+      "location": "NYC",
+      "followers": 1561,
+      "following": 7206,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Thu Feb 23 06:50:59 +0000 2023",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16523,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1424,
+      "statusesCount": 4323,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [
+        "1954197752830632441"
+      ],
+      "profile_bio": {
+        "description": "Supply chain @stockx. CTO @ https://t.co/BH0AKW05hM",
+        "entities": {
+          "description": {
+            "urls": [
+              {
+                "display_url": "averagedatabase.com",
+                "expanded_url": "http://averagedatabase.com",
+                "indices": [
+                  28,
+                  51
+                ],
+                "url": "https://t.co/BH0AKW05hM"
+              }
+            ],
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  13,
+                  20
+                ],
+                "name": "",
+                "screen_name": "stockx"
+              }
+            ]
+          },
+          "url": {
+            "urls": [
+              {
+                "display_url": "josevalerio.com",
+                "expanded_url": "https://josevalerio.com/",
+                "indices": [
+                  0,
+                  23
+                ],
+                "url": "https://t.co/wK4xbVAWF3"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {},
+    "card": null,
+    "place": {},
+    "entities": {},
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1972887543856455907",
+    "url": "https://x.com/notjoswayski/status/1972887543856455907",
+    "twitterUrl": "https://twitter.com/notjoswayski/status/1972887543856455907",
+    "text": "https://t.co/MfbBccoqJO",
+    "source": "Twitter for iPhone",
+    "retweetCount": 528,
+    "replyCount": 143,
+    "likeCount": 11978,
+    "quoteCount": 47,
+    "viewCount": 888993,
+    "createdAt": "Tue Sep 30 04:53:39 +0000 2025",
+    "lang": "zxx",
+    "bookmarkCount": 836,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1972887543856455907",
+    "displayTextRange": [
+      0,
+      0
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "notjoswayski",
+      "url": "https://x.com/notjoswayski",
+      "twitterUrl": "https://twitter.com/notjoswayski",
+      "id": "1628648550715346946",
+      "name": "Jose Valerio",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1740943465234497536/k2FoboJN_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1628648550715346946/1724428597",
+      "description": "",
+      "location": "NYC",
+      "followers": 1561,
+      "following": 7206,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Thu Feb 23 06:50:59 +0000 2023",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16523,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1424,
+      "statusesCount": 4323,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [
+        "1954197752830632441"
+      ],
+      "profile_bio": {
+        "description": "Supply chain @stockx. CTO @ https://t.co/BH0AKW05hM",
+        "entities": {
+          "description": {
+            "urls": [
+              {
+                "display_url": "averagedatabase.com",
+                "expanded_url": "http://averagedatabase.com",
+                "indices": [
+                  28,
+                  51
+                ],
+                "url": "https://t.co/BH0AKW05hM"
+              }
+            ],
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  13,
+                  20
+                ],
+                "name": "",
+                "screen_name": "stockx"
+              }
+            ]
+          },
+          "url": {
+            "urls": [
+              {
+                "display_url": "josevalerio.com",
+                "expanded_url": "https://josevalerio.com/",
+                "indices": [
+                  0,
+                  23
+                ],
+                "url": "https://t.co/wK4xbVAWF3"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {
+      "media": [
+        {
+          "allow_download_status": {
+            "allow_download": true
+          },
+          "display_url": "pic.twitter.com/MfbBccoqJO",
+          "expanded_url": "https://twitter.com/notjoswayski/status/1972887543856455907/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "features": {
+            "large": {},
+            "orig": {}
+          },
+          "id_str": "1972887540890812416",
+          "indices": [
+            0,
+            23
+          ],
+          "media_key": "3_1972887540890812416",
+          "media_results": {
+            "id": "QXBpTWVkaWFSZXN1bHRzOgwAAQoAARthGsQAl0AACgACG2EaxLFbYOMAAA==",
+            "result": {
+              "__typename": "ApiMedia",
+              "id": "QXBpTWVkaWE6DAABCgABG2EaxACXQAAKAAIbYRrEsVtg4wAA",
+              "media_key": "3_1972887540890812416"
+            }
+          },
+          "media_url_https": "https://pbs.twimg.com/media/G2EaxACXQAASzMd.jpg",
+          "original_info": {
+            "focus_rects": [
+              {
+                "h": 551,
+                "w": 984,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 984,
+                "w": 984,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 1122,
+                "w": 984,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 1968,
+                "w": 984,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 2048,
+                "w": 984,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "height": 2048,
+            "width": 984
+          },
+          "sizes": {
+            "large": {
+              "h": 2048,
+              "w": 984
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/MfbBccoqJO"
+        }
+      ]
+    },
+    "card": null,
+    "place": {},
+    "entities": {},
+    "quoted_tweet": {
+      "type": "tweet",
+      "id": "1972680653859643446",
+      "url": "https://x.com/ElliotEvNo/status/1972680653859643446",
+      "twitterUrl": "https://twitter.com/ElliotEvNo/status/1972680653859643446",
+      "text": "we just killed software engineering btw",
+      "source": "Twitter for iPhone",
+      "retweetCount": 705,
+      "replyCount": 882,
+      "likeCount": 11806,
+      "quoteCount": 470,
+      "viewCount": 3675482,
+      "createdAt": "Mon Sep 29 15:11:33 +0000 2025",
+      "lang": "en",
+      "bookmarkCount": 7671,
+      "isReply": false,
+      "inReplyToId": null,
+      "conversationId": "1972680653859643446",
+      "displayTextRange": [
+        0,
+        39
+      ],
+      "inReplyToUserId": null,
+      "inReplyToUsername": null,
+      "author": {
+        "type": "user",
+        "userName": "ElliotEvNo",
+        "url": "https://x.com/ElliotEvNo",
+        "twitterUrl": "https://twitter.com/ElliotEvNo",
+        "id": "1676276828443484171",
+        "name": "Elliot",
+        "isVerified": false,
+        "isBlueVerified": true,
+        "verifiedType": null,
+        "profilePicture": "https://pbs.twimg.com/profile_images/1961083069093318656/9sVs-gIW_normal.jpg",
+        "coverPicture": "",
+        "description": "",
+        "location": "Stockholm, Sverige",
+        "followers": 3403,
+        "following": 501,
+        "status": "",
+        "canDm": true,
+        "canMediaTag": true,
+        "createdAt": "Tue Jul 04 17:08:53 +0000 2023",
+        "entities": {
+          "description": {
+            "urls": []
+          },
+          "url": {}
+        },
+        "fastFollowersCount": 0,
+        "favouritesCount": 1727,
+        "hasCustomTimelines": true,
+        "isTranslator": false,
+        "mediaCount": 60,
+        "statusesCount": 732,
+        "withheldInCountries": [],
+        "affiliatesHighlightedLabel": {
+          "label": {
+            "badge": {
+              "url": "https://pbs.twimg.com/profile_images/1915780454092779520/PIxdzAvI_bigger.jpg"
+            },
+            "description": "Lovable",
+            "url": {
+              "url": "https://twitter.com/lovable_dev",
+              "url_type": "DeepLink"
+            },
+            "user_label_type": "BusinessLabel",
+            "user_label_display_type": "Badge"
+          }
+        },
+        "possiblySensitive": false,
+        "pinnedTweetIds": [
+          "1957840343476416926"
+        ],
+        "profile_bio": {
+          "description": "16 y/o building AGI | high school dropout",
+          "entities": {
+            "description": {},
+            "url": {
+              "urls": [
+                {
+                  "display_url": "norrevik.ai",
+                  "expanded_url": "https://norrevik.ai",
+                  "indices": [
+                    0,
+                    23
+                  ],
+                  "url": "https://t.co/18pHm6QRYs"
+                }
+              ]
+            }
+          }
+        },
+        "isAutomated": false,
+        "automatedBy": null
+      },
+      "extendedEntities": {},
+      "card": null,
+      "place": {},
+      "entities": {},
+      "quoted_tweet": {
+        "type": "tweet",
+        "id": "1972680165378650391",
+        "url": "",
+        "twitterUrl": "",
+        "text": "",
+        "source": "Twitter for iPhone",
+        "retweetCount": 0,
+        "replyCount": 0,
+        "likeCount": 0,
+        "quoteCount": 0,
+        "viewCount": 0,
+        "createdAt": "",
+        "lang": "",
+        "bookmarkCount": 0,
+        "isReply": false,
+        "inReplyToId": null,
+        "conversationId": "",
+        "displayTextRange": [],
+        "inReplyToUserId": null,
+        "inReplyToUsername": null,
+        "author": {},
+        "extendedEntities": {},
+        "card": null,
+        "place": {},
+        "entities": {},
+        "quoted_tweet": null,
+        "retweeted_tweet": null,
+        "isLimitedReply": false,
+        "article": null
+      },
+      "retweeted_tweet": null,
+      "isLimitedReply": false,
+      "article": null
+    },
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1972795422352838848",
+    "url": "https://x.com/notjoswayski/status/1972795422352838848",
+    "twitterUrl": "https://twitter.com/notjoswayski/status/1972795422352838848",
+    "text": "Met this nice young fella today - he offered to take a pic with us so that we can drop a bunch of people from our free tier https://t.co/0PBIRYPHsN",
+    "source": "Twitter for iPhone",
+    "retweetCount": 33,
+    "replyCount": 53,
+    "likeCount": 1657,
+    "quoteCount": 14,
+    "viewCount": 90426,
+    "createdAt": "Mon Sep 29 22:47:36 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 134,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1972795422352838848",
+    "displayTextRange": [
+      0,
+      123
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "notjoswayski",
+      "url": "https://x.com/notjoswayski",
+      "twitterUrl": "https://twitter.com/notjoswayski",
+      "id": "1628648550715346946",
+      "name": "Jose Valerio",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1740943465234497536/k2FoboJN_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1628648550715346946/1724428597",
+      "description": "",
+      "location": "NYC",
+      "followers": 1561,
+      "following": 7206,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Thu Feb 23 06:50:59 +0000 2023",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16523,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1424,
+      "statusesCount": 4323,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [
+        "1954197752830632441"
+      ],
+      "profile_bio": {
+        "description": "Supply chain @stockx. CTO @ https://t.co/BH0AKW05hM",
+        "entities": {
+          "description": {
+            "urls": [
+              {
+                "display_url": "averagedatabase.com",
+                "expanded_url": "http://averagedatabase.com",
+                "indices": [
+                  28,
+                  51
+                ],
+                "url": "https://t.co/BH0AKW05hM"
+              }
+            ],
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  13,
+                  20
+                ],
+                "name": "",
+                "screen_name": "stockx"
+              }
+            ]
+          },
+          "url": {
+            "urls": [
+              {
+                "display_url": "josevalerio.com",
+                "expanded_url": "https://josevalerio.com/",
+                "indices": [
+                  0,
+                  23
+                ],
+                "url": "https://t.co/wK4xbVAWF3"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {
+      "media": [
+        {
+          "allow_download_status": {
+            "allow_download": true
+          },
+          "display_url": "pic.twitter.com/0PBIRYPHsN",
+          "expanded_url": "https://twitter.com/notjoswayski/status/1972795422352838848/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "features": {
+            "large": {
+              "faces": [
+                {
+                  "h": 197,
+                  "w": 197,
+                  "x": 906,
+                  "y": 447
+                },
+                {
+                  "h": 228,
+                  "w": 228,
+                  "x": 254,
+                  "y": 427
+                },
+                {
+                  "h": 210,
+                  "w": 210,
+                  "x": 402,
+                  "y": 114
+                }
+              ]
+            },
+            "orig": {
+              "faces": [
+                {
+                  "h": 197,
+                  "w": 197,
+                  "x": 906,
+                  "y": 447
+                },
+                {
+                  "h": 228,
+                  "w": 228,
+                  "x": 254,
+                  "y": 427
+                },
+                {
+                  "h": 210,
+                  "w": 210,
+                  "x": 402,
+                  "y": 114
+                }
+              ]
+            }
+          },
+          "id_str": "1972791120749821952",
+          "indices": [
+            124,
+            147
+          ],
+          "media_key": "3_1972791120749821952",
+          "media_results": {
+            "id": "QXBpTWVkaWFSZXN1bHRzOgwAAQoAARtgwxJwVoAACgACG2DG+/vbkMAAAA==",
+            "result": {
+              "__typename": "ApiMedia",
+              "id": "QXBpTWVkaWE6DAABCgABG2DDEnBWgAAKAAIbYMb7+9uQwAAA",
+              "media_key": "3_1972791120749821952"
+            }
+          },
+          "media_url_https": "https://pbs.twimg.com/media/G2DDEnBWgAAUwNr.jpg",
+          "original_info": {
+            "focus_rects": [
+              {
+                "h": 864,
+                "w": 1542,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "h": 1272,
+                "w": 1272,
+                "x": 270,
+                "y": 0
+              },
+              {
+                "h": 1272,
+                "w": 1116,
+                "x": 405,
+                "y": 0
+              },
+              {
+                "h": 1272,
+                "w": 636,
+                "x": 645,
+                "y": 0
+              },
+              {
+                "h": 1272,
+                "w": 1542,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "height": 1272,
+            "width": 1542
+          },
+          "sizes": {
+            "large": {
+              "h": 1272,
+              "w": 1542
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/0PBIRYPHsN"
+        }
+      ]
+    },
+    "card": null,
+    "place": {},
+    "entities": {},
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1972762924340126093",
+    "url": "https://x.com/notjoswayski/status/1972762924340126093",
+    "twitterUrl": "https://twitter.com/notjoswayski/status/1972762924340126093",
+    "text": "Things you do when AGI and global hyper abundance is right around the corner",
+    "source": "Twitter for iPhone",
+    "retweetCount": 0,
+    "replyCount": 0,
+    "likeCount": 9,
+    "quoteCount": 0,
+    "viewCount": 2011,
+    "createdAt": "Mon Sep 29 20:38:27 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 0,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1972762924340126093",
+    "displayTextRange": [
+      0,
+      76
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "notjoswayski",
+      "url": "https://x.com/notjoswayski",
+      "twitterUrl": "https://twitter.com/notjoswayski",
+      "id": "1628648550715346946",
+      "name": "Jose Valerio",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1740943465234497536/k2FoboJN_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1628648550715346946/1724428597",
+      "description": "",
+      "location": "NYC",
+      "followers": 1561,
+      "following": 7206,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Thu Feb 23 06:50:59 +0000 2023",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16523,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1424,
+      "statusesCount": 4323,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [
+        "1954197752830632441"
+      ],
+      "profile_bio": {
+        "description": "Supply chain @stockx. CTO @ https://t.co/BH0AKW05hM",
+        "entities": {
+          "description": {
+            "urls": [
+              {
+                "display_url": "averagedatabase.com",
+                "expanded_url": "http://averagedatabase.com",
+                "indices": [
+                  28,
+                  51
+                ],
+                "url": "https://t.co/BH0AKW05hM"
+              }
+            ],
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  13,
+                  20
+                ],
+                "name": "",
+                "screen_name": "stockx"
+              }
+            ]
+          },
+          "url": {
+            "urls": [
+              {
+                "display_url": "josevalerio.com",
+                "expanded_url": "https://josevalerio.com/",
+                "indices": [
+                  0,
+                  23
+                ],
+                "url": "https://t.co/wK4xbVAWF3"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {},
+    "card": null,
+    "place": {},
+    "entities": {},
+    "quoted_tweet": {
+      "type": "tweet",
+      "id": "1972751037657452818",
+      "url": "https://x.com/DeItaone/status/1972751037657452818",
+      "twitterUrl": "https://twitter.com/DeItaone/status/1972751037657452818",
+      "text": "OPENAI IS PREPARING TO LAUNCH A SOCIAL APP FOR AI-GENERATED VIDEOS - WIRED",
+      "source": "Twitter for iPhone",
+      "retweetCount": 49,
+      "replyCount": 68,
+      "likeCount": 394,
+      "quoteCount": 45,
+      "viewCount": 180405,
+      "createdAt": "Mon Sep 29 19:51:13 +0000 2025",
+      "lang": "en",
+      "bookmarkCount": 27,
+      "isReply": false,
+      "inReplyToId": null,
+      "conversationId": "1972751037657452818",
+      "displayTextRange": [
+        0,
+        74
+      ],
+      "inReplyToUserId": null,
+      "inReplyToUsername": null,
+      "author": {
+        "type": "user",
+        "userName": "DeItaone",
+        "url": "https://x.com/DeItaone",
+        "twitterUrl": "https://twitter.com/DeItaone",
+        "id": "2704294333",
+        "name": "*Walter Bloomberg",
+        "isVerified": false,
+        "isBlueVerified": true,
+        "verifiedType": null,
+        "profilePicture": "https://pbs.twimg.com/profile_images/1282648991348527104/A8HCjqZk_normal.jpg",
+        "coverPicture": "https://pbs.twimg.com/profile_banners/2704294333/1746092944",
+        "description": "",
+        "location": "Geneva, Switzerland",
+        "followers": 1031928,
+        "following": 41,
+        "status": "",
+        "canDm": true,
+        "canMediaTag": false,
+        "createdAt": "Sun Aug 03 14:34:52 +0000 2014",
+        "entities": {
+          "description": {
+            "urls": []
+          },
+          "url": {}
+        },
+        "fastFollowersCount": 0,
+        "favouritesCount": 8265,
+        "hasCustomTimelines": true,
+        "isTranslator": false,
+        "mediaCount": 5387,
+        "statusesCount": 175137,
+        "withheldInCountries": [],
+        "affiliatesHighlightedLabel": {},
+        "possiblySensitive": false,
+        "pinnedTweetIds": [
+          "1973035495564185871"
+        ],
+        "profile_bio": {
+          "description": "Promote your firm on our feed. For inquiries, DM or walterbloomberg@protonmail.ch",
+          "entities": {
+            "description": {}
+          }
+        },
+        "isAutomated": false,
+        "automatedBy": null
+      },
+      "extendedEntities": {},
+      "card": null,
+      "place": {},
+      "entities": {},
+      "quoted_tweet": null,
+      "retweeted_tweet": null,
+      "isLimitedReply": false,
+      "article": null
+    },
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  },
+  {
+    "type": "tweet",
+    "id": "1972512782068424917",
+    "url": "https://x.com/notjoswayski/status/1972512782068424917",
+    "twitterUrl": "https://twitter.com/notjoswayski/status/1972512782068424917",
+    "text": "Nice fast queries bro - are you going over the public internet?",
+    "source": "Twitter for iPhone",
+    "retweetCount": 0,
+    "replyCount": 0,
+    "likeCount": 4,
+    "quoteCount": 0,
+    "viewCount": 1076,
+    "createdAt": "Mon Sep 29 04:04:29 +0000 2025",
+    "lang": "en",
+    "bookmarkCount": 0,
+    "isReply": false,
+    "inReplyToId": null,
+    "conversationId": "1972512782068424917",
+    "displayTextRange": [
+      0,
+      63
+    ],
+    "inReplyToUserId": null,
+    "inReplyToUsername": null,
+    "author": {
+      "type": "user",
+      "userName": "notjoswayski",
+      "url": "https://x.com/notjoswayski",
+      "twitterUrl": "https://twitter.com/notjoswayski",
+      "id": "1628648550715346946",
+      "name": "Jose Valerio",
+      "isVerified": false,
+      "isBlueVerified": true,
+      "verifiedType": null,
+      "profilePicture": "https://pbs.twimg.com/profile_images/1740943465234497536/k2FoboJN_normal.jpg",
+      "coverPicture": "https://pbs.twimg.com/profile_banners/1628648550715346946/1724428597",
+      "description": "",
+      "location": "NYC",
+      "followers": 1561,
+      "following": 7206,
+      "status": "",
+      "canDm": true,
+      "canMediaTag": true,
+      "createdAt": "Thu Feb 23 06:50:59 +0000 2023",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {}
+      },
+      "fastFollowersCount": 0,
+      "favouritesCount": 16523,
+      "hasCustomTimelines": true,
+      "isTranslator": false,
+      "mediaCount": 1424,
+      "statusesCount": 4323,
+      "withheldInCountries": [],
+      "affiliatesHighlightedLabel": {},
+      "possiblySensitive": false,
+      "pinnedTweetIds": [
+        "1954197752830632441"
+      ],
+      "profile_bio": {
+        "description": "Supply chain @stockx. CTO @ https://t.co/BH0AKW05hM",
+        "entities": {
+          "description": {
+            "urls": [
+              {
+                "display_url": "averagedatabase.com",
+                "expanded_url": "http://averagedatabase.com",
+                "indices": [
+                  28,
+                  51
+                ],
+                "url": "https://t.co/BH0AKW05hM"
+              }
+            ],
+            "user_mentions": [
+              {
+                "id_str": "0",
+                "indices": [
+                  13,
+                  20
+                ],
+                "name": "",
+                "screen_name": "stockx"
+              }
+            ]
+          },
+          "url": {
+            "urls": [
+              {
+                "display_url": "josevalerio.com",
+                "expanded_url": "https://josevalerio.com/",
+                "indices": [
+                  0,
+                  23
+                ],
+                "url": "https://t.co/wK4xbVAWF3"
+              }
+            ]
+          }
+        }
+      },
+      "isAutomated": false,
+      "automatedBy": null
+    },
+    "extendedEntities": {},
+    "card": null,
+    "place": {},
+    "entities": {},
+    "quoted_tweet": null,
+    "retweeted_tweet": null,
+    "isLimitedReply": false,
+    "article": null
+  }
+]
